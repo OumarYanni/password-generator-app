@@ -1,0 +1,61 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "JetBrains Mono", sans-serif;
+  min-height: 100vh; /* Hauteur égale à X% de la hauteur de la fenêtre du navigateur */
+  min-width: 100vw; /* Largeur égale à X% de la largeur de la fenêtre du navigateur */
+  margin: 0;
+  padding: 0;
+}
+
+/*.material-symbols-outlined {
+}*/
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.checkbox-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.password-strength {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.password-strength-label {
+  margin-right: 10px;
+}
+
+.indicator {
+  display: flex;
+}
+
+.bar {
+  width: 20px;
+  height: 10px;
+  margin-right: 2px;
+  background-color: #ddd;
+}
+
+/* Classes pour les niveaux de force */
+.too-weak .bar {
+  background-color: red;
+}
+.weak .bar:nth-child(-n + 2) {
+  background-color: orange;
+}
+.medium .bar:nth-child(-n + 3) {
+  background-color: yellow;
+}
+.strong .bar {
+  background-color: green;
+}
