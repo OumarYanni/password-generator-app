@@ -1,6 +1,29 @@
+const passwordInput = document.querySelector("#display-password");
 const characterLengthInput = document.querySelector("#character-length-slider");
 
 const sliderValueElement = document.querySelector("#slider-value");
+
+const includeUppercaseCheckbox = document.querySelector(
+  "#uppercase-letters-checkbox"
+);
+const includeLowercaseCheckbox = document.querySelector(
+  "#lowercase-letters-checkbox"
+);
+const includeNumbersCheckbox = document.querySelector(
+  "#numbers-letters-checkbox"
+);
+const includeSymbolsCheckbox = document.querySelector(
+  "#symbols-letters-checkbox"
+);
+
+const generatePasswordButton = document.querySelector(
+  ".generate-password-button"
+);
+
+const uppercaseChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const lowercaseChars = "abcdefghijklmnopqrstuvwxyz";
+const numberChars = "0123456789";
+const symbolChars = "!@#$%^&*()_+-=[]{}|;':\",.<>/?";
 
 async function passwordCopyHandling() {
   /*onclick="passwordCopyHandling()" */
@@ -33,21 +56,28 @@ function handleCopyButton() {
   }
 }*/
 
+function updateSliderValue() {
+  const passwordLength = passwordInput.value.length;
+
+  characterLengthInput.value = passwordLength;
+  sliderValueElement.textContent = passwordLength;
+}
+
 function updateDisplay(elem, val) {
   return (elem.textContent = val);
 }
 
-function updateSliderDisplay() {
-  /*oninput="updateSliderDisplay(this.value)" */
+// function updateSliderDisplay() {
+//   /*oninput="updateSliderDisplay(this.value)" */
 
-  updateDisplay(sliderValueElement, characterLengthInput.value);
+//   updateDisplay(sliderValueElement, characterLengthInput.value);
 
-  console.log("La longueur des caractères est :", characterLengthInput.value);
-}
+//   console.log("La longueur des caractères est :", characterLengthInput.value);
+// }
 
-function handleSliderInput() {
-  characterLengthInput.addEventListener("input", updateSliderDisplay);
-}
+// function handleSliderInput() {
+//   characterLengthInput.addEventListener("input", updateSliderDisplay);
+// }
 
 function getPasswordStrength(password) {
   const length = password.length;
@@ -92,13 +122,14 @@ function updateStrengthIndicator() {
 }
 
 function handlePasswordInput() {
-  const passwordInput = document.querySelector("#display-password");
-
-  passwordInput.addEventListener("input", updateStrengthIndicator);
+  passwordInput.addEventListener("input", () => {
+    updateStrengthIndicator();
+    updateSliderValue();
+  });
 }
 
 function main() {
-  handleSliderInput();
+  //handleSliderInput();
   handleCopyButton();
   handlePasswordInput();
 }
