@@ -67,17 +67,17 @@ function updateDisplay(elem, val) {
   return (elem.textContent = val);
 }
 
-// function updateSliderDisplay() {
-//   /*oninput="updateSliderDisplay(this.value)" */
+function updateSliderDisplay() {
+  /*oninput="updateSliderDisplay(this.value)" */
 
-//   updateDisplay(sliderValueElement, characterLengthInput.value);
+  updateDisplay(sliderValueElement, characterLengthInput.value);
 
-//   console.log("La longueur des caractères est :", characterLengthInput.value);
-// }
+  console.log("La longueur des caractères est :", characterLengthInput.value);
+}
 
-// function handleSliderInput() {
-//   characterLengthInput.addEventListener("input", updateSliderDisplay);
-// }
+function handleSliderInput() {
+  characterLengthInput.addEventListener("input", updateSliderDisplay);
+}
 
 function getPasswordStrength(password) {
   const length = password.length;
@@ -121,17 +121,63 @@ function updateStrengthIndicator() {
   }
 }
 
-function handlePasswordInput() {
-  passwordInput.addEventListener("input", () => {
+// function handlePasswordInput() {
+//   passwordInput.addEventListener("input", () => {
+//     updateStrengthIndicator();
+//     updateSliderValue();
+//   });
+// }
+
+function generatePassword(
+  length,
+  hasUppercase,
+  hasLowercase,
+  hasNumbers,
+  hasSymbols
+) {
+  let characters = "";
+  if (hasUppercase) characters += uppercaseChars;
+  if (hasLowercase) characters += lowercaseChars;
+  if (hasNumbers) characters += numberChars;
+  if (hasSymbols) characters += symbolChars;
+
+  let password = "";
+  for (let i = 0; i < length; i++) {
+    password += characters.charAt(
+      Math.floor(Math.random() * characters.length)
+    );
+  }
+
+  return password;
+}
+
+function handleGenerateButton() {
+  generatePasswordButton.addEventListener("click", () => {
+    const length = characterLengthInput.value;
+    const hasUppercase = includeUppercaseCheckbox.checked;
+    const hasLowercase = includeLowercaseCheckbox.checked;
+    const hasNumbers = includeNumbersCheckbox.checked;
+    const hasSymbols = includeSymbolsCheckbox.checked;
+
+    const newPassword = generatePassword(
+      length,
+      hasUppercase,
+      hasLowercase,
+      hasNumbers,
+      hasSymbols
+    );
+
+    passwordInput.value = newPassword;
+
     updateStrengthIndicator();
-    updateSliderValue();
   });
 }
 
 function main() {
-  //handleSliderInput();
+  handleSliderInput();
   handleCopyButton();
-  handlePasswordInput();
+  //handlePasswordInput();
+  handleGenerateButton();
 }
 
 main();
