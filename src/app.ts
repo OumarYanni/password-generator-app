@@ -1,7 +1,14 @@
+import {
+  getPasswordStrength,
+  generatePassword
+} from "./functions.js"
+
 const passwordInput = document.querySelector("#display-password");
 const characterLengthInput = document.querySelector("#character-length-slider");
 
 const sliderValueElement = document.querySelector("#slider-value");
+
+const applicationTitle = document.querySelector(".application-title");
 
 const includeUppercaseCheckbox = document.querySelector(
   "#uppercase-letters-checkbox"
@@ -19,11 +26,6 @@ const includeSymbolsCheckbox = document.querySelector(
 const generatePasswordButton = document.querySelector(
   ".generate-password-button"
 );
-
-const uppercaseChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-const lowercaseChars = "abcdefghijklmnopqrstuvwxyz";
-const numberChars = "0123456789";
-const symbolChars = "!@#$%^&*()_+-=[]{}|;':\",.<>/?";
 
 async function passwordCopyHandling() {
   /*onclick="passwordCopyHandling()" */
@@ -79,20 +81,6 @@ function handleSliderInput() {
   characterLengthInput.addEventListener("input", updateSliderDisplay);
 }
 
-function getPasswordStrength(password) {
-  const length = password.length;
-
-  if (length >= 15) {
-    return "strong";
-  } else if (length >= 10) {
-    return "medium";
-  } else if (length >= 6) {
-    return "weak";
-  } else {
-    return "too-weak";
-  }
-}
-
 function updateStrengthIndicator() {
   const password = document.querySelector("#display-password").value;
   const indicator = document.querySelector("#password-strength-indicator");
@@ -127,29 +115,6 @@ function updateStrengthIndicator() {
 //     updateSliderValue();
 //   });
 // }
-
-function generatePassword(
-  length,
-  hasUppercase,
-  hasLowercase,
-  hasNumbers,
-  hasSymbols
-) {
-  let characters = "";
-  if (hasUppercase) characters += uppercaseChars;
-  if (hasLowercase) characters += lowercaseChars;
-  if (hasNumbers) characters += numberChars;
-  if (hasSymbols) characters += symbolChars;
-
-  let password = "";
-  for (let i = 0; i < length; i++) {
-    password += characters.charAt(
-      Math.floor(Math.random() * characters.length)
-    );
-  }
-
-  return password;
-}
 
 function handleGenerateButton() {
   generatePasswordButton.addEventListener("click", () => {
